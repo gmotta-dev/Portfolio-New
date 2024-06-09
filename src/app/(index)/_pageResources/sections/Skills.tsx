@@ -1,6 +1,8 @@
 import ContentWrapper from "@/shared/components/ContentWrapper";
-import { Nextjs } from "@/shared/components/Icons";
+import { Figma, Nextjs, Tailwind, Typescript, Node, Sql, Aws, Git } from "@/shared/components/Icons";
 import React from "@/shared/components/Icons/React";
+import { ComponentProps, ElementType, ReactNode } from "react";
+import { twMerge } from "tailwind-merge";
 
 export default function Skills() {
   return (
@@ -11,15 +13,23 @@ export default function Skills() {
       </p>
       <ul className="mt-16 flex flex-wrap">
         {icons.map((icon, index) => (
-          <SkillItem key={index} icon={icon} />
+          <SkillBox key={index} icon={icon} />
         ))}
+        <SkillBox className="border-transparent ">
+          <p className="text-3xl max-w-[150px] font-bold text-neutral-100">More to come...</p>
+        </SkillBox>
       </ul>
     </ContentWrapper>
   );
 }
 
-const icons = [<Nextjs />, <React />];
+const icons = [Nextjs, React, Typescript, Tailwind, Figma, Node, Sql, Aws, Git];
 
-const SkillItem = (props: { icon: React.ReactNode }) => {
-  return <li className="flex h-[120px] w-[170px] items-center justify-center border border-mostard-300 text-mostard-100 md:h-[200px] md:w-[244px]">{props.icon}</li>;
+const SkillBox = (props: { children?: ReactNode; icon?: ElementType<ComponentProps<"svg">>; className?: string }) => {
+  return (
+    <li className={twMerge("flex h-[120px] w-[170px] flex-grow items-center justify-center border border-mostard-300 text-mostard-100 md:h-[200px] md:w-[244px]", props.className)}>
+      {props.icon && <props.icon className="max-w-[50px] md:max-w-none" />}
+      {props.children}
+    </li>
+  );
 };
